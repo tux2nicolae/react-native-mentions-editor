@@ -16,10 +16,9 @@ export default StyleSheet.create({
     marginHorizontal: 10
   },
   inputWrapper: {
+    flex:1,
     flexDirection: 'row',
-    maxHeight: 120,
     alignItems: 'center',
-    padding: 10,
     ...Platform.select({
       android: {
         paddingTop: 0
@@ -37,7 +36,6 @@ export default StyleSheet.create({
     flexDirection: 'row', 
     justifyContent: 'space-around', 
     borderTopWidth: StyleSheet.hairlineWidth,
-    padding: 10,
     borderTopColor: 'gray',
     paddingBottom: 0
   },

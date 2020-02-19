@@ -30,6 +30,7 @@ export class Editor extends React.Component {
     renderMentionList: PropTypes.func,
     renderButtonSubmit: PropTypes.func,
     leftIcon: PropTypes.any,
+    rightIcon: PropTypes.any,
     sourceEmpty: PropTypes.any,
     icons: PropTypes.array,
     infoReply: PropTypes.object
@@ -589,7 +590,6 @@ export class Editor extends React.Component {
   render() {
     const { props, state } = this;
     const { editorStyles = {} } = props;
-    const icons = props.icons || ['😂', '😉', '😍', '😭', '👍', '❤️', '😘', '😎']
 
     if (!props.showEditor) return null;
 
@@ -602,8 +602,8 @@ export class Editor extends React.Component {
     };
 
     return (
-      <View styles={editorStyles.mainContainer}>
-        {props.renderMentionList ? (
+      <View style={editorStyles.mainContainer}>
+       {props.renderMentionList ? (
           props.renderMentionList(mentionListProps)
         ) : (
           <Animated.View
@@ -624,23 +624,12 @@ export class Editor extends React.Component {
           </Animated.View>
         )}
 
-        <View style={styles.iconWrapper}>
-          {icons.map((icon, index) => (
-            <TouchableOpacity onPress={() => this.onChooseIcon(icon)} key={index}>
-              <Text style={styles.icon}>{icon}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-       
-        <View style={styles.inputWrapper}>
-          <Image source={props.leftIcon} style={styles.leftIcon} resizeMode={'contain'}/>
+        <View style={[styles.inputWrapper]}>
           <TextInput
-            ref={input => props.onRef && props.onRef(input)}
             style={[styles.input, editorStyles.input]}
             multiline
             name={"message"}
             value={state.inputText}
-            onBlur={props.toggleEditor}
             onChangeText={this.onChange}
             selection={Platform.OS === 'ios' ? this.state.selection : null}
             selectionColor={"#000"}
