@@ -624,7 +624,7 @@ export class Editor extends React.Component {
           </Animated.View>
         )}
 
-        <View style={[styles.inputWrapper]}>
+        <View style={[styles.inputWrapper, editorStyles.inputWrapper]}>
           <TextInput
             style={[styles.input, editorStyles.input]}
             multiline
