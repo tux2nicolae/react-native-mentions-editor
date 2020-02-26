@@ -7,8 +7,6 @@ import {
   Text,
   Animated,
   Platform,
-  Image,
-  TouchableOpacity
 } from "react-native";
 
 import EU from "./EditorUtils";
@@ -66,6 +64,7 @@ export class Editor extends React.Component {
       },
       menIndex: 0,
       showMentions: false,
+      showSuggestionsPanel: false,
       editorHeight: 72,
       scrollContentInset: { top: 0, bottom: 0, left: 0, right: 0 },
       placeholder: props.placeholder || "Type something...",
@@ -561,17 +560,23 @@ export class Editor extends React.Component {
   };
 
   openSuggestionsPanel() {
-    Animated.timing(this.state.suggestionRowHeight, {
-      toValue: 100, //height
-      duration: 500,
-    }).start();
+    this.setState({showSuggestionsPanel : true}, ()=>
+      Animated.timing(this.state.suggestionRowHeight, {
+        toValue: 100, //height
+        duration: 500,
+        // useNativeDriver : true,
+      }).start()
+    );
   }
 
   closeSuggestionsPanel() {
     Animated.timing(this.state.suggestionRowHeight, {
       toValue: 0,
       duration: 500,
-    }).start();
+      // useNativeDriver : true,
+    }).start(()=>{
+      this.setState({showSuggestionsPanel : false});
+    });
   }
 
   onChooseIcon = (icon) => {
@@ -606,7 +611,7 @@ export class Editor extends React.Component {
        {props.renderMentionList ? (
           props.renderMentionList(mentionListProps)
         ) : (
-          <Animated.View
+          this.state.showSuggestionsPanel && <Animated.View
             style={[
               styles.shadow,
               { height: state.suggestionRowHeight },

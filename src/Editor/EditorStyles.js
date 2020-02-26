@@ -18,6 +18,7 @@ export default StyleSheet.create({
   inputWrapper: {
     flex:1,
     flexDirection: 'row',
+    maxHeight:120,
     alignItems: 'center',
     ...Platform.select({
       android: {
