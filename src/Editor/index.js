@@ -599,7 +599,7 @@ export class Editor extends React.Component {
     if (!props.showEditor) return null;
 
     const mentionListProps = {
-      list: props.list,
+      getList: props.getList,
       keyword: state.keyword,
       isTrackingStarted: state.isTrackingStarted,
       onSuggestionTap: this.onSuggestionTap.bind(this),
@@ -619,7 +619,7 @@ export class Editor extends React.Component {
             ]}
           >
             <MentionList
-              list={props.list}
+              getList={props.getList}
               keyword={state.keyword}
               isTrackingStarted={state.isTrackingStarted}
               onSuggestionTap={this.onSuggestionTap}
