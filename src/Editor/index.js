@@ -15,7 +15,8 @@ import MentionList from "../MentionList";
 
 export class Editor extends React.Component {
   static propTypes = {
-    list: PropTypes.array,
+    list: PropTypes.func,
+    searchUsers: PropTypes.func,
     initialValue: PropTypes.string,
     clearInput: PropTypes.bool,
     onChange: PropTypes.func,
@@ -153,6 +154,8 @@ export class Editor extends React.Component {
   }
 
   updateSuggestions(lastKeyword) {
+    this.props.searchUsers(lastKeyword);
+
     this.setState({
       keyword: lastKeyword
     });
@@ -599,7 +602,8 @@ export class Editor extends React.Component {
     if (!props.showEditor) return null;
 
     const mentionListProps = {
-      getList: props.getList,
+      list: props.list,
+      searchUsers: props.searchUsers,
       keyword: state.keyword,
       isTrackingStarted: state.isTrackingStarted,
       onSuggestionTap: this.onSuggestionTap.bind(this),
@@ -619,7 +623,7 @@ export class Editor extends React.Component {
             ]}
           >
             <MentionList
-              getList={props.getList}
+              list={props.list}
               keyword={state.keyword}
               isTrackingStarted={state.isTrackingStarted}
               onSuggestionTap={this.onSuggestionTap}

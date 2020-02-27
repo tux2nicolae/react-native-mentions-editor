@@ -8,7 +8,7 @@ import styles from "./MentionListStyles";
 
 export class MentionList extends React.PureComponent {
   static propTypes = {
-    getList: PropTypes.func,
+    list: PropTypes.func,
     editorStyles: PropTypes.object,
     isTrackingStarted: PropTypes.bool,
     suggestions: PropTypes.array,
@@ -33,7 +33,7 @@ export class MentionList extends React.PureComponent {
   };
 
   filterUser = keyword => {
-    const list = this.props.getList(keyword);
+    const list = this.props.list(keyword);
     let arr = [];
     for (const item of list) {
       if (
