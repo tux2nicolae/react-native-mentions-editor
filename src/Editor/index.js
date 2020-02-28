@@ -15,6 +15,7 @@ import MentionList from "../MentionList";
 
 export class Editor extends React.Component {
   static propTypes = {
+    inputRef: PropTypes.any,
     list: PropTypes.array,
     searchUsers: PropTypes.func,
     initialValue: PropTypes.string,
@@ -387,7 +388,7 @@ export class Editor extends React.Component {
         start === 1 ? "" : inputText.substring(lastIndex, start);
       lastIndex = end + 1;
       formattedText = formattedText.concat(initialStr);
-      formattedText = formattedText.concat(`@${men.ref}`);
+      formattedText = formattedText.concat(`@[${men.name}](id:${men.id})`);
       if (
         EU.isKeysAreSame(EU.getLastKeyInMap(this.mentionsMap), [start, end])
       ) {
@@ -635,6 +636,7 @@ export class Editor extends React.Component {
 
         <View style={[styles.inputWrapper, editorStyles.inputWrapper]}>
           <TextInput
+            ref={props.inputRef}
             style={[styles.input, editorStyles.input]}
             multiline
             name={"message"}
