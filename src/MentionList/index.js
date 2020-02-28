@@ -8,7 +8,7 @@ import styles from "./MentionListStyles";
 
 export class MentionList extends React.PureComponent {
   static propTypes = {
-    list: PropTypes.func,
+    list: PropTypes.array,
     editorStyles: PropTypes.object,
     isTrackingStarted: PropTypes.bool,
     suggestions: PropTypes.array,
@@ -33,7 +33,7 @@ export class MentionList extends React.PureComponent {
   };
 
   filterUser = keyword => {
-    const list = this.props.list(keyword);
+    const list = this.props.list;
     let arr = [];
     for (const item of list) {
       if (
@@ -50,12 +50,13 @@ export class MentionList extends React.PureComponent {
 
     const { keyword, isTrackingStarted, editorStyles } = props;
     const withoutAtKeyword = keyword.substr(1, keyword.length);
-    const list = this.props.list;
     const listSuggest = this.filterUser(withoutAtKeyword)
-    const suggestions = listSuggest.length ? listSuggest : list;
+    const suggestions = listSuggest.length ? listSuggest : this.props.list;
+
     if (!isTrackingStarted) {
       return null;
     }
+
     return (
       <FlatList
         style={[styles.mentionsListContainer, editorStyles.mentionsListContainer]}

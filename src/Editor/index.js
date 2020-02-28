@@ -15,7 +15,7 @@ import MentionList from "../MentionList";
 
 export class Editor extends React.Component {
   static propTypes = {
-    list: PropTypes.func,
+    list: PropTypes.array,
     searchUsers: PropTypes.func,
     initialValue: PropTypes.string,
     clearInput: PropTypes.bool,
