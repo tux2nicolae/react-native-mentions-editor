@@ -20,7 +20,7 @@ export const displayTextWithMentions = (inputText, formatMentionNode) => {
         formattedText.push(initialStr);
         const formattedMention = formatMentionNode(
           `@${men.username}`,
-          `${index}-${men.id}-${rowIndex}`
+          `${men.id}`
         );
         formattedText.push(formattedMention);
         if (mentions.length - 1 === index) {
@@ -31,7 +31,7 @@ export const displayTextWithMentions = (inputText, formatMentionNode) => {
     } else {
       formattedText.push(retLine);
     }
-    formattedText.push("\n");
+    //formattedText.push("\n");
   });
   return formattedText;
 };
