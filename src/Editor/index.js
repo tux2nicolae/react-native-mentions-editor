@@ -155,7 +155,9 @@ export class Editor extends React.Component {
   }
 
   updateSuggestions(lastKeyword) {
-    this.props.searchUsers(lastKeyword);
+    if(this.props.searchUsers){
+      this.props.searchUsers(lastKeyword);
+    }
 
     this.setState({
       keyword: lastKeyword
@@ -237,10 +239,10 @@ export class Editor extends React.Component {
      * Also updates the remaining string if there
      * are any adjcent mentions text with the new one.
      */
-    // const {inputText, menIndex} = this.state;
-    // let initialStr = inputText.substr(0, menIndex).trim();
+      // const {inputText, menIndex} = this.state;
+      // let initialStr = inputText.substr(0, menIndex).trim();
 
-    // replace last string
+      // replace last string
     let initialStr = inputText.slice(0, inputText.length - inputText.split(' ').pop().length)
     if (!EU.isEmpty(initialStr)) {
       initialStr = initialStr + " ";
@@ -346,9 +348,9 @@ export class Editor extends React.Component {
 
   formatMentionNode = (txt, key) => (
     <Text key={key} style={styles.mention}>
-      {txt}
+    {txt}
     </Text>
-  );
+);
 
   formatText(inputText) {
     /**
@@ -417,9 +419,9 @@ export class Editor extends React.Component {
         formattedText = formattedText.concat(lastStr);
       }
       mentionList.push({
-          username: men.username,
-          ref: men.ref,
-        });
+        username: men.username,
+        ref: men.ref,
+      });
     });
     return mentionList;
   }
@@ -528,7 +530,7 @@ export class Editor extends React.Component {
         }
       }
     }
-
+    // console.log("what is the text HELLLO &&&&", text)
     this.setState({
       inputText: text,
       // formattedText: this.formatText(text)
@@ -612,47 +614,47 @@ export class Editor extends React.Component {
     };
 
     return (
-      <View style={editorStyles.mainContainer}>
-       {props.renderMentionList ? (
-          props.renderMentionList(mentionListProps)
-        ) : (
-          this.state.showSuggestionsPanel && <Animated.View
-            style={[
-              styles.shadow,
-              { height: state.suggestionRowHeight },
-              editorStyles.mentionsListWrapper,
-            ]}
-          >
-            <MentionList
-              list={props.list}
-              keyword={state.keyword}
-              isTrackingStarted={state.isTrackingStarted}
-              onSuggestionTap={this.onSuggestionTap}
-              editorStyles={editorStyles}
-              sourceEmpty={props.sourceEmpty}
-            />
-          </Animated.View>
-        )}
+      <View style={[editorStyles.mainContainer,]}>
+    {props.renderMentionList ? (
+      props.renderMentionList(mentionListProps)
+    ) : (
+      this.state.showSuggestionsPanel && <Animated.View
+      style={[
+          styles.shadow,
+      { height: state.suggestionRowHeight },
+      editorStyles.mentionsListWrapper,
+    ]}
+    >
+    <MentionList
+      list={props.list}
+      keyword={state.keyword}
+      isTrackingStarted={state.isTrackingStarted}
+      onSuggestionTap={this.onSuggestionTap}
+      editorStyles={editorStyles}
+      sourceEmpty={props.sourceEmpty}
+      />
+      </Animated.View>
+    )}
 
-        <View style={[styles.inputWrapper, editorStyles.inputWrapper]}>
-          <TextInput
-            ref={props.inputRef}
-            style={[styles.input, editorStyles.input]}
-            multiline
-            name={"message"}
-            value={state.inputText}
-            onChangeText={this.onChange}
-            selection={Platform.OS === 'ios' ? this.state.selection : null}
-            selectionColor={"#000"}
-            onSelectionChange={this.handleSelectionChange}
-            placeholder={state.placeholder}
-            onContentSizeChange={this.onContentSizeChange}
-            {...this.props}
-          />
-          {props.renderButtonSubmit && props.renderButtonSubmit()}
-        </View>
-      </View>
-    );
+  <View style={[styles.inputWrapper, editorStyles.inputWrapper]}>
+  <TextInput
+    ref={props.inputRef}
+    style={[styles.input, editorStyles.input]}
+    multiline
+    name={"message"}
+    value={state.inputText}
+    onChangeText={this.onChange}
+    selection={Platform.OS === 'ios' ? this.state.selection : null}
+    selectionColor={"#000"}
+    onSelectionChange={this.handleSelectionChange}
+    placeholder={state.placeholder}
+    onContentSizeChange={this.onContentSizeChange}
+    {...this.props}
+    />
+    {props.renderButtonSubmit && props.renderButtonSubmit()}
+  </View>
+    </View>
+  );
   }
 }
 
